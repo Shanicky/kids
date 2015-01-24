@@ -527,6 +527,11 @@ void Client::ProcessPing() {
 }
 
 void Client::ProcessPubSub() {
+  if (!kids->config_.monitor) {
+    ReplyErrorFormat("Commnad %s is not supported", argv_[0]);
+    return;
+  }
+
   if (argv_.size() == 1) {
     ReplyErrorFormat("Wrong number of arguments for '%s' command", argv_[0]);
     return;
@@ -583,6 +588,11 @@ void Client::ProcessPubSub() {
 }
 
 void Client::ProcessLsActiveTopics() {
+  if (!kids->config_.monitor) {
+    ReplyErrorFormat("Commnad %s is not supported", argv_[0]);
+    return;
+  }
+
   Monitor::TopicSet active_topics = kids->monitor_->GetActiveTopics();
   Buffer reply;
   reply.append_printf("{\"active_topics\":[");
@@ -596,6 +606,11 @@ void Client::ProcessLsActiveTopics() {
 }
 
 void Client::ProcessLsAllTopics() {
+  if (!kids->config_.monitor) {
+    ReplyErrorFormat("Commnad %s is not supported", argv_[0]);
+    return;
+  }
+
   Monitor::TopicSet all_topics = kids->monitor_->GetAllTopics();
   Buffer reply;
   reply.append_printf("{\"all_topics\":[");
@@ -609,6 +624,11 @@ void Client::ProcessLsAllTopics() {
 }
 
 void Client::ProcessClientsOf() {
+  if (!kids->config_.monitor) {
+    ReplyErrorFormat("Commnad %s is not supported", argv_[0]);
+    return;
+  }
+
   if (argv_.size() != 2) {
     ReplyErrorFormat("invalid argments of clientsof");
   } else {
@@ -639,6 +659,11 @@ void Client::ProcessClientsOf() {
 }
 
 void Client::ProcessTopicInfo() {
+  if (!kids->config_.monitor) {
+    ReplyErrorFormat("Commnad %s is not supported", argv_[0]);
+    return;
+  }
+
   if (argv_.size() != 2) {
     ReplyErrorFormat("invalid argments of topicinfo");
   } else {
@@ -663,6 +688,11 @@ void Client::ProcessTopicInfo() {
 }
 
 void Client::ProcessTopics() {
+  if (!kids->config_.monitor) {
+    ReplyErrorFormat("Commnad %s is not supported", argv_[0]);
+    return;
+  }
+
   auto topic_stats = kids->monitor_->GetTopicStats();
   Buffer reply;
   reply.append_printf("{\"topics\":[");
